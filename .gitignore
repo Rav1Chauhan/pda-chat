@@ -1,0 +1,23 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+.surfpool
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+indexer/.env
+
+# JavaScript dependencies
+node_modules/
+indexer/node_modules/
+
+# Build artifacts
+target/
+.anchor/
+.DS_Store
