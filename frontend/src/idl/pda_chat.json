@@ -1,0 +1,528 @@
+{
+  "address": "HGVJnqBu9BEaer3dfT2X3h4h3fG3VhoTMWzBamTUUTdS",
+  "metadata": {
+    "name": "pda_chat",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "delete_message",
+      "discriminator": [
+        198,
+        99,
+        22,
+        204,
+        200,
+        165,
+        54,
+        138
+      ],
+      "accounts": [
+        {
+          "name": "message",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  101,
+                  115,
+                  115,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "sender"
+              },
+              {
+                "kind": "account",
+                "path": "message.message_id",
+                "account": "Message"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sender",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "message"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "register_encryption_key",
+      "discriminator": [
+        52,
+        17,
+        28,
+        66,
+        141,
+        254,
+        167,
+        183
+      ],
+      "accounts": [
+        {
+          "name": "encryption_key",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  110,
+                  99,
+                  114,
+                  121,
+                  112,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  107,
+                  101,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "encryption_public_key",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "send_encrypted_message",
+      "discriminator": [
+        58,
+        178,
+        194,
+        14,
+        53,
+        143,
+        37,
+        4
+      ],
+      "accounts": [
+        {
+          "name": "encrypted_message",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  110,
+                  99,
+                  114,
+                  121,
+                  112,
+                  116,
+                  101,
+                  100,
+                  95,
+                  109,
+                  101,
+                  115,
+                  115,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "sender"
+              },
+              {
+                "kind": "arg",
+                "path": "message_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sender",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "recipient",
+          "docs": [
+            "This account does not need to sign to receive a message."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "message_id",
+          "type": "u64"
+        },
+        {
+          "name": "sender_encryption_key",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "recipient_encryption_key",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "nonce",
+          "type": {
+            "array": [
+              "u8",
+              24
+            ]
+          }
+        },
+        {
+          "name": "ciphertext",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "send_message",
+      "discriminator": [
+        57,
+        40,
+        34,
+        178,
+        189,
+        10,
+        65,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "message",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  101,
+                  115,
+                  115,
+                  97,
+                  103,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "sender"
+              },
+              {
+                "kind": "arg",
+                "path": "message_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sender",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "message_id",
+          "type": "u64"
+        },
+        {
+          "name": "content",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "update_encryption_key",
+      "discriminator": [
+        92,
+        233,
+        29,
+        101,
+        152,
+        97,
+        110,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "encryption_key",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  110,
+                  99,
+                  114,
+                  121,
+                  112,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  107,
+                  101,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "encryption_key"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "encryption_public_key",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "EncryptedMessage",
+      "discriminator": [
+        42,
+        71,
+        3,
+        45,
+        202,
+        204,
+        49,
+        61
+      ]
+    },
+    {
+      "name": "EncryptionKey",
+      "discriminator": [
+        6,
+        60,
+        23,
+        105,
+        201,
+        33,
+        233,
+        33
+      ]
+    },
+    {
+      "name": "Message",
+      "discriminator": [
+        110,
+        151,
+        23,
+        110,
+        198,
+        6,
+        125,
+        181
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "MessageTooLong",
+      "msg": "Message content cannot exceed 280 bytes."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidEncryptedMessage",
+      "msg": "Encrypted message must be non-empty and within the size limit."
+    }
+  ],
+  "types": [
+    {
+      "name": "EncryptedMessage",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "sender",
+            "type": "pubkey"
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "sender_encryption_key",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "recipient_encryption_key",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "message_id",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "nonce",
+            "type": {
+              "array": [
+                "u8",
+                24
+              ]
+            }
+          },
+          {
+            "name": "ciphertext",
+            "type": "string"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EncryptionKey",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "encryption_public_key",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Message",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "sender",
+            "type": "pubkey"
+          },
+          {
+            "name": "message_id",
+            "type": "u64"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -21,3 +21,8 @@ indexer/node_modules/
 target/
 .anchor/
 .DS_Store
+
+# Local backups and pre-change snapshots
+*.backup
+*.before-*
+*.backup.js
